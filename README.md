@@ -37,6 +37,16 @@ uv run python scripts/deploy.py --host gluvok@hermes.local
 
 ---
 
+### 3. Remote Cloudflare Tunnel Deployment
+
+For cloud access from Janus, Argus is exposed securely via Cloudflare Tunnel with Zero Trust Access and anti-spoofing `X-API-Key` headers:
+
+- **Setup Guide**: See [docs/cloudflare-tunnel.md](file:///Users/kaalu/importante/argus/docs/cloudflare-tunnel.md) for full configuration, systemd service setup, and timeout tuning.
+- **Automation Script**: Run `./scripts/cloudflared/setup_tunnel.sh` with `TUNNEL_NAME` and `TUNNEL_HOSTNAME`.
+- **Environment**: Configure `ARGUS_API_KEY` to enforce token validation on all remote requests.
+
+---
+
 ## ⚡ 4-Tier Cascaded Execution Pipeline
 
 Argus uses a vehicle-first cascade. It first executes Stage 1 vehicle detection (YOLO26 OpenVINO CPU via `yolo26n_openvino_model/`) and sorts vehicles by proximity:

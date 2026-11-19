@@ -207,3 +207,8 @@ debug_crops/
 :memory:.ses
 *.ses
 yolo26n.onnx
+
+# Cloudflared runtime and credentials
+scripts/cloudflared/config.yml
+scripts/cloudflared/*.json
+scripts/cloudflared/cloudflared
