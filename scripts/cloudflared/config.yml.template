@@ -1,0 +1,11 @@
+tunnel: ${TUNNEL_ID}
+credentials-file: /etc/cloudflared/${TUNNEL_ID}.json
+
+ingress:
+  - hostname: ${TUNNEL_HOSTNAME}
+    service: http://127.0.0.1:8000
+    originRequest:
+      connectTimeout: 30s
+      keepAliveTimeout: 90s
+      noTLSVerify: false
+  - service: http_status:404
