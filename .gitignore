@@ -212,3 +212,7 @@ yolo26n.onnx
 scripts/cloudflared/config.yml
 scripts/cloudflared/*.json
 scripts/cloudflared/cloudflared
+
+# Scratch plans and audit documents
+docs/plans/
+docs/analysis/
