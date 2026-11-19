@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     """Runtime environment configuration loaded from .env or environment variables."""
 
     ENABLE_MULTI_VEHICLE_OCR: bool = False
+    ARGUS_API_KEY: str | None = None
 
     model_config = SettingsConfigDict(
         env_file=".env",

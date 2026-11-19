@@ -3,14 +3,14 @@
 from typing import Annotated
 
 from asyncer import asyncify
-from fastapi import APIRouter, File, UploadFile
+from fastapi import APIRouter, Depends, File, UploadFile
 
-from app.api.dependencies import InferenceSemaphore
+from app.api.dependencies import InferenceSemaphore, verify_api_key
 from app.schemas import RecognitionResponse
 from app.services.image_processing import read_upload_stream, validate_image_upload
 from app.services.pipeline import recognize_plate_image
 
-router = APIRouter(tags=["Recognition"])
+router = APIRouter(tags=["Recognition"], dependencies=[Depends(verify_api_key)])
 
 
 @router.post("/recognize", summary="Recognize Vehicle License Plate")

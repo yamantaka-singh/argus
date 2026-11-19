@@ -53,7 +53,9 @@ def api_client():
     return TestClient(app)
 
 
-def test_loopback_unauthenticated_request_is_allowed(api_client, monkeypatch, sample_image_bytes):
+def test_loopback_unauthenticated_request_is_allowed(
+    api_client, monkeypatch, sample_image_bytes
+):
     """Local edge hardware (Hermes on 127.0.0.1) without Cloudflare headers does not require API key."""
     monkeypatch.setattr(settings, "ARGUS_API_KEY", "secret-test-key")
     response = api_client.post(
@@ -63,7 +65,9 @@ def test_loopback_unauthenticated_request_is_allowed(api_client, monkeypatch, sa
     assert response.status_code == 200
 
 
-def test_remote_tunnel_request_without_key_is_rejected(api_client, monkeypatch, sample_image_bytes):
+def test_remote_tunnel_request_without_key_is_rejected(
+    api_client, monkeypatch, sample_image_bytes
+):
     """Requests carrying Cloudflare tunnel headers without valid API key or CF Access token must fail with 401."""
     monkeypatch.setattr(settings, "ARGUS_API_KEY", "secret-test-key")
     response = api_client.post(
@@ -78,7 +82,9 @@ def test_remote_tunnel_request_without_key_is_rejected(api_client, monkeypatch, 
     assert "Invalid or missing API key" in response.json()["message"]
 
 
-def test_remote_tunnel_request_with_valid_api_key_passes(api_client, monkeypatch, sample_image_bytes):
+def test_remote_tunnel_request_with_valid_api_key_passes(
+    api_client, monkeypatch, sample_image_bytes
+):
     """Requests carrying Cloudflare tunnel headers with matching X-API-Key header must succeed."""
     monkeypatch.setattr(settings, "ARGUS_API_KEY", "secret-test-key")
     response = api_client.post(
@@ -119,6 +125,7 @@ Expected: FAIL (`ARGUS_API_KEY` attribute error or 401 assertion failure).
 ```python
 from fastapi import Header, HTTPException, Request, status
 from app.core.config import settings
+
 
 def verify_api_key(
     request: Request,
